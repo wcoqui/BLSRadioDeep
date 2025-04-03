@@ -157,7 +157,7 @@
                                 <button id="togglePlay" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     <i class="fas fa-play mr-2"></i> Reproducir
                                 </button>
-                                <button class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <button onclick="shareRadio()" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     <i class="fas fa-share-alt mr-2"></i> Compartir
                                 </button>
                             </div>
@@ -405,6 +405,30 @@
                 this.querySelector('i').className = 'fas ' + (audio.muted ? 'fa-volume-mute' : 'fa-volume-up');
             });
         });
+    </script>
+
+    <!-- Near the end of the file, before the closing </body> tag, add this to your existing script section -->
+    <script>
+        async function shareRadio() {
+            const shareData = {
+                title: 'Buscando La Salvación Radio',
+                text: 'Escucha Buscando La Salvación Radio - Transmitiendo esperanza y fe las 24 horas del día',
+                url: window.location.href
+            };
+    
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                } else {
+                    // Fallback: Copy URL to clipboard
+                    await navigator.clipboard.writeText(window.location.href);
+                    alert('¡Enlace copiado al portapapeles!');
+                }
+            } catch (err) {
+                console.error('Error al compartir:', err);
+                alert('No se pudo compartir. Intente copiar la URL manualmente.');
+            }
+        }
     </script>
 </body>
 </html>
